@@ -7,15 +7,19 @@
     <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
     <h1>Aggiungi un film</h1>
     <form th:action="@{/movie}" method="POST" th:object="${movie}">
-		<div>
-        Titolo: <span><input required type="text" th:field="${movie.title}"/></span>
-		<span th:text="${messaggioErroreTitolo}">messaggio errore</span>
+		<div th:if="${#fields.globalErrors()}">
+			<p th:each="err: ${#fields.globalErrors()}" th:text="${err}">...</p>
+      </div>
+	  <div>
+		<label>Titolo:</label> <span><input required type="text" th:field="${movie.title}"/></span>
+		<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+	  </div>
+      <div>
+		<label>Anno:</label><span><input required type="text" th:field="${movie.year}"/></span>
+		<span th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></span>
       </div>
       <div>
-        Anno: <span><input required type="text" th:field="${movie.year}"/></span>
-      </div>
-      <div>
-        URL immagine: <span><input type="url" th:field="${movie.urlImage}" /></span>
+		<label>URL immagine:</label><span><input type="url" th:field="${movie.urlImage}" /></span>
       </div>
       <div>
         <span><button type="submit">Conferma</button></span>

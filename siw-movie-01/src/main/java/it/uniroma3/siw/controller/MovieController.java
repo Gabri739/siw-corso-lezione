@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Movie;
 import it.uniroma3.siw.service.MovieService;
+import jakarta.validation.Valid;
 
 /*La classe MovieController gestisce le richieste HTTP e fa in modo che venngano messi i dati a disposizione per la visualizzazione per produrre una risposta */
 @Controller
@@ -34,17 +35,19 @@ public class MovieController {
 		model.addAttribute("movie", new Movie());
 		return "formNewMovie.html";
 	}
+	@PostMapping("/movie")
+	public String newMovie(@Valid @ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
+		if(bindingResult.hasErrors()){
+			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
+			return "formNewMovie.html";
+		}else {
+			this.movieService.save(movie);
+			model.addAttribute("movie", movie);
+			return "redirect:/movie/"+movie.getId();
+		}
+	}
 	@GetMapping("/")
 	public String home() {
 		return "index.html";
-	}
-	@PostMapping("/movie")
-	public String newMovie(@ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
-		if(movie.getTitle()==null || movie.getTitle().equals("")) {
-			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
-			return "formNewMovie.html";
-		}else
-			this.movieService.save(movie);
-		return "redirect:movie/"+ movie.getId();
 	}
 }
