@@ -7,8 +7,9 @@
     <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
     <h1>Aggiungi un film</h1>
     <form th:action="@{/movie}" method="POST" th:object="${movie}">
-<div>
+		<div>
         Titolo: <span><input required type="text" th:field="${movie.title}"/></span>
+		<span th:text="${messaggioErroreTitolo}">messaggio errore</span>
       </div>
       <div>
         Anno: <span><input required type="text" th:field="${movie.year}"/></span>

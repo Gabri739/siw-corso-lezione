@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,10 +34,17 @@ public class MovieController {
 		model.addAttribute("movie", new Movie());
 		return "formNewMovie.html";
 	}
+	@GetMapping("/")
+	public String home() {
+		return "index.html";
+	}
 	@PostMapping("/movie")
-	public String newMovie(@ModelAttribute("movie") Movie movie, Model model) {
-		this.movieService.save(movie);
-		model.addAttribute("movie", movie);
+	public String newMovie(@ModelAttribute("movie") Movie movie, BindingResult bindingResult, Model model) {
+		if(movie.getTitle()==null || movie.getTitle().equals("")) {
+			model.addAttribute("messaggioErroreTitolo", "Campo obbligatorio");
+			return "formNewMovie.html";
+		}else
+			this.movieService.save(movie);
 		return "redirect:movie/"+ movie.getId();
 	}
 }
