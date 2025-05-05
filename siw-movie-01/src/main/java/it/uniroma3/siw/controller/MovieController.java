@@ -46,8 +46,4 @@ public class MovieController {
 			return "redirect:/movie/"+movie.getId();
 		}
 	}
-	@GetMapping("/")
-	public String home() {
-		return "index.html";
-	}
 }

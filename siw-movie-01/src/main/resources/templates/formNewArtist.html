@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <title>New Movie</title>
+     <link rel="stylesheet" href="/stile.css?version=3" />
+   </head>
+   <body>
+     <div><a href="/"><img src="/logo-siw.png" width="20%"/></a></div>
+     <h1>Aggiungi un artista</h1>
+     <form th:action="@{/artist}" method="POST" th:object="${artist}">
+       <p th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+       <div>
+         <label>Nome:</label> <span><input required type="text" th:field="${artist.name}"/></span>
+         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+       </div>
+       <div>
+         <label>Cognome:</label><span><input required type="text" th:field="${artist.surname}"/></span>
+         <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+       </div>
+       <div>
+         <label>Anno di nascita:</label><span><input required type="date" th:field="${artist.birth}" /></span>
+         <span th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}"></span>
+       </div>
+       <div>
+         <span><button type="submit">Conferma</button></span>
+       </div>
+     </form>
+   </body>
+ </html>

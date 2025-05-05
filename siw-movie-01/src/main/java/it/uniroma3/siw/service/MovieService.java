@@ -25,6 +25,5 @@ public class MovieService {
 	
 	public void save(Movie movie) {
 		movieRepository.save(movie);
-		System.out.println("Nuovo film inserito correttamente");
 	}
 }
