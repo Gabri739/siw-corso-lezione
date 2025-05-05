@@ -24,4 +24,5 @@ public class ArtistService {
 		artistRepository.save(artist);
 		System.out.println("Nuovo film inserito correttamente");
 	}
+
 }

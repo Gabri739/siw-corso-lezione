@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Movie;
+import it.uniroma3.siw.service.ArtistService;
 import it.uniroma3.siw.service.MovieService;
 import jakarta.validation.Valid;
 
@@ -19,6 +20,8 @@ public class MovieController {
 		
 	@Autowired //Autowired permette di creare un oggetto MovieRepository senza passare per definizione ed invocazione del costruttore della classe in questione
 	MovieService movieService;
+	@Autowired
+	ArtistService artistService;
 
 	@GetMapping("/movie/{id}")
 	public String getMovie(@PathVariable("id") Long id, Model model) {
@@ -62,5 +65,10 @@ public class MovieController {
 		model.addAttribute("movie", this.movieService.getMovieById(id));
 		return "modificaFilm.html";
 	}
-	
+	@GetMapping("/registiPerFilm/{id}")
+	public String registiPerFilm(@PathVariable("id") Long id, Model model) { //da rivedere
+		model.addAttribute("artists", this.artistService.getAllArtist());
+		model.addAttribute("movie", this.movieService.getMovieById(id));
+		return "registiPerFilm.html";
+	}
 }

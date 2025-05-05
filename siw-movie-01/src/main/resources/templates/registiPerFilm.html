@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Artisti</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+  </head>
+
+  <body>
+    <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
+    <h1>Artisti</h1>
+    <div th:if="${artists.isEmpty()}">Non ci sono artisti nel sistema</div>
+    <ul>
+      <li th:each="artist : ${artists}">
+        <span th:text="${artist.name} + ${artist.surname} + ' (' + ${artist.birth} + ')'">Nome Cognome (03/04/2002)</span>
+		<a th:href="@{'/aggiungiRegistaAFilm' + '/' + ${artist.id}+ '/' + ${movie.id}}">Aggiungi Regista al Film</a>
+      </li>
+    </ul>
+  </body>
+
+</html>
