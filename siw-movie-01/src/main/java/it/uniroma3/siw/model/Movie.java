@@ -1,11 +1,15 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -27,6 +31,24 @@ public class Movie {
 	private Integer year;
 	private String urlImage;
 	
+	@ManyToMany
+	private List <Artist> actors;
+	
+	@ManyToOne
+	private Artist director;
+	
+	public List<Artist> getActors() {
+		return actors;
+	}
+	public void setActors(List<Artist> actors) {
+		this.actors = actors;
+	}
+	public Artist getDirector() {
+		return director;
+	}
+	public void setDirector(Artist director) {
+		this.director = director;
+	}
 	public Long getId() {
 		return id;
 	}

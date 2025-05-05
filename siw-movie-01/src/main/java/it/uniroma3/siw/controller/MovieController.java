@@ -46,4 +46,21 @@ public class MovieController {
 			return "redirect:/movie/"+movie.getId();
 		}
 	}
+	@GetMapping("/aggiornaFilm")
+	public String aggionaFilm(Model model) {
+		model.addAttribute("movies", this.movieService.getAllMovies());
+		return "aggiornaFilm.html";
+	}
+	@GetMapping("/cancellaFilm/{id}")
+	public String cancellaFilm(@PathVariable("id") Long id, Model model) {
+		this.movieService.deleteById(id);
+		model.addAttribute("movies", this.movieService.getAllMovies());
+		return "aggiornaFilm.html";
+	}
+	@GetMapping("/modificaFilm/{id}")
+	public String modificaFilm(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("movie", this.movieService.getMovieById(id));
+		return "modificaFilm.html";
+	}
+	
 }

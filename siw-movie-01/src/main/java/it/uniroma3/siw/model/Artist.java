@@ -5,10 +5,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,6 +26,24 @@ public class Artist {
 	@NotNull
 	private LocalDate birth;
 	
+	@ManyToMany(mappedBy="actors")
+	private List <Movie> movies;
+	
+	@OneToMany(mappedBy = "director")
+	private List <Movie> directorOf;
+	
+	public List<Movie> getMovies() {
+		return movies;
+	}
+	public void setMovies(List<Movie> movies) {
+		this.movies = movies;
+	}
+	public List<Movie> getDirectorOf() {
+		return directorOf;
+	}
+	public void setDirectorOf(List<Movie> directorOf) {
+		this.directorOf = directorOf;
+	}
 	public Long getId() {
 		return id;
 	}

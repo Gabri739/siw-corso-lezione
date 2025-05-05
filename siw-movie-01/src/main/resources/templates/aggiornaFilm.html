@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Aggiorna Film</title>
+    <link rel="stylesheet" href="/stile.css?version=2" />
+  </head>
+
+  <body>
+    <div><a href="/"><img src="/logo-siw.png" width="50%"/></a></div>
+    <h1>Film</h1>
+    <div th:if="${movies.isEmpty()}">Non ci sono film nel sistema</div>
+    <ul>
+      <li th:each="movie : ${movies}">
+        <span th:text="${movie.title} + ' (' + ${movie.year} + ')'">Up! (2000)</span>
+		<a th:href="@{'/cancellaFilm' + '/' + ${movie.id}}">Cancella</a>
+		<a th:href="@{'/modificaFilm' + '/' + ${movie.id}}">Modifica</a>
+      </li>
+    </ul>
+  </body>
+
+</html>
